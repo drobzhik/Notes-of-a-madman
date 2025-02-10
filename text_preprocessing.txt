@@ -1,0 +1,26 @@
+# Загрузка необходимых ресурсов
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt_tab')
+load_model = spacy.load("ru_core_news_sm")
+
+def clean_text(text):
+    text = re.sub(r'[^а-яА-ЯёЁ0-9\s]', '', text)  # Удаляем все, кроме букв и пробелов
+
+    # 1. Токенизация
+    word_tokens = word_tokenize(text, language='russian')
+    sentence_tokens = sent_tokenize(text, language='russian')
+
+    # 2. Лемматизация и выделение значимых частей речи
+    significant_tokens = []
+    for doc in load_model.pipe(word_tokens):
+        for token in doc:
+            # Оставляем только существительные, глаголы и прилагательные
+            if token.pos_ in ['NOUN', 'VERB', 'ADJ']:
+                significant_tokens.append(token.lemma_)
+
+    # 3. Удаление стоп-слов
+    stop_words = set(stopwords.words('russian'))
+    filtered_tokens = [word for word in significant_tokens if word.lower() not in stop_words]
+
+    return ' '.join(filtered_tokens)
