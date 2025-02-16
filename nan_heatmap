@@ -1,0 +1,5 @@
+plt.figure(figsize=(10, 6))
+sns.heatmap(data.isnull(), cbar=False, cmap='PuRd')
+
+plt.title('Визуализация пропусков данных')
+plt.show()
