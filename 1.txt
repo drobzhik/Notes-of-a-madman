@@ -1,0 +1,18 @@
+mongorestore -d test1 "/mnt/c/Users/user/Downloads/test_dump"
+
+
+1) create database mydb;
+2) locate to \\wsl.localhost\Ubuntu-24.04\tmp
+3) sudo -u postgres psql -d mydb -f /tmp/dump.sql
+
+ALTER USER postgres PASSWORD 'postgres';
+
+
+import psycopg2
+import pandas as pd
+from sqlalchemy import create_engine
+
+engine = create_engine('postgresql://postgres:postgres@localhost:5432/mydb')
+
+plan = pd.read_sql('SELECT * FROM "план";', engine)
+tourism = pd.read_sql('SELECT * FROM "туризм";', engine)
