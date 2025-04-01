@@ -1,5 +1,16 @@
 Переместить файл в /mnt (общедоступная) 
+
+sudo systemctl start mongod
+sudo systemctl status mongod
+
+mongosh
+show dbs
+use test1
+
 mongorestore -d test1 "/mnt/c/Users/user/Downloads/test_dump"
+show collections
+
+
 
 
 1) create database mydb;
