@@ -1,3 +1,4 @@
+Переместить файл в /mnt (общедоступная) 
 mongorestore -d test1 "/mnt/c/Users/user/Downloads/test_dump"
 
 
