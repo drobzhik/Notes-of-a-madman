@@ -38,3 +38,6 @@ engine = create_engine('postgresql://postgres:postgres@localhost:5432/mydb')
 
 plan = pd.read_sql('SELECT * FROM "план";', engine)
 tourism = pd.read_sql('SELECT * FROM "туризм";', engine)
+
+
+sudo -u postgres pg_dump -d chmp -f /tmp/dump.sql
