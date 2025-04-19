@@ -1,0 +1,21 @@
+Восстановление бд:
+1) перенести dump в /tmp
+2) сделать бд (mydb) : create database mydb;
+3) sudo -u postgres psql -d mydb -f /tmp/dump.sql
+
+Создание dump:
+1) sudo -u postgres pg_dump -d mydb -f /tmp/dump.sql
+
+Подключение:
+engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost/mydb')
+df = pd.read_sql_table('df', con=engine)
+
+Выгрузка:
+engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost/mydb')
+df.to_sql(name='df', con=engine, if_exists='replace', index=False)
+engine.dispose()
+
+Доп:
+ALTER SYSTEM SET track_commit_timestamp = on;
+перезагрузить postgresql
+select * from [таблица] WHERE pg_xact_commit_timestamp(xmin) >= NOW() - INTERVAL '2 weeks';
