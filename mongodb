@@ -13,6 +13,3 @@ client = MongoClient("mongodb://localhost:27017/")
 db = client['df']  # Database name
 df_records = df.to_dict('records')
 db['df'].insert_many(df_records)
-
-Доп:
-db.[коллекция].find({ _id: {$gte: ObjectId(Math.floor(Date.now() / 1000) - 14 * 24 * 60 * 60)}})
