@@ -1,0 +1,18 @@
+Восстановление бд:
+1) перенести dump в /tmp
+2) сделать бд (mydb) : use mydb
+3) mongorestore -d mydb "/tmp/dump"
+
+Подключение:
+client = MongoClient('mongodb://localhost:27017/')
+db = client['mydatabase']
+collection = db['mycollection']
+
+Выгрузка:
+client = MongoClient("mongodb://localhost:27017/")
+db = client['df']  # Database name
+df_records = df.to_dict('records')
+db['df'].insert_many(df_records)
+
+Доп:
+db.[коллекция].find({ _id: {$gte: ObjectId(Math.floor(Date.now() / 1000) - 14 * 24 * 60 * 60)}})
